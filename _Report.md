@@ -376,3 +376,158 @@
 
 > results
 1. I came to the conclusion that it is necessary to manually filter all non-bearing plates from the view, because they violate the geometry of the beams and this makes it difficult to set the design parameters for the element. Perhaps in the future, this can be done with another script.
+
+## 9/07/2023
+> tasks
+1. Attaching the studs to the floor frame.
+
+> details
+1. Adjustment of studs extensions to new analytical lines at floor level. Alignment of the walls along the axes and adjustment of the corner joints according to the scheme found earlier.
+
+>results
+1. The algorithm for creating a wall frame works correctly. The central analytical line for a group of studs is located exactly at the corners of the intersections. So far, there is a problem with the transfer of wall studs to floor beams in places where the perpendicular beam passes, because there is the nearest intersection point.
+
+![point offset](Point offset.png)
+
+## 11/07/2023
+> tasks
+1. Correction of non-vertical studs.
+
+> details
+1. Search for all non-vertical studs. Creation of an algorithm that searches for one of the studs points that match the model node, then, based on this point and the Z coordinate of the second point, creates a new correct point.
+
+>results
+1. Based on the obtained points, create the correct vertical studs.
+
+## 12/07/2023
+> tasks
+1. Adjust tolerances.
+
+> details
+1. During the development of the script, it turned out that for each type of structure, a different tolerance is required for the correct operation of the union (for example, for floor beams it is 150 mm, and for studs - 300 mm). It was necessary to study the work of the script in different conditions of tolerances.
+
+>results
+1. In the formula for creating a transferred line, I added a tolerance as a separate input. In my opinion, these parameters will need to be put into an input for the user
+
+## 14/07/2023
+> tasks
+1. Setting up blocking creation.
+
+> details
+1. There were problems with the incorrect creation of analytical blocking lines after simplifying the general analytical model. And there was also a problem with creating lines for blockings that are converted to a mesh and not a solid.
+
+>results
+1. An algorithm for the center line from the mesh has been added. Work continues on the correct creation of blocks.
+
+## 14/07/2023
+> tasks
+1. Setting up blocking creation.
+
+> details
+1. Removed short blocking lines from the list. I worked on getting the blocking lines to join the studs. Because the studs were connected at a small distance, the blockings may not reach one of the studs. It was necessary to add an extension of the lines from both ends and then attach them.
+
+>results
+1. Basically, analytical blocking lines are built correctly. There was one problem with joining blockings to sill studs.
+
+![blocking with sill studs](Blocking with sill studs.png)
+
+## 18/07/2023
+> tasks
+1. Attaching the roof.
+
+> details
+1. Worked on ways to attach the roof to the frame. Since the roof should not be connected to the walls at all points, this causes difficulties for the algorithm. Several methods for joining have been tried.
+
+>results
+1. There is no correct result yet.
+
+## 20/07/2023
+> tasks
+1. Roof fixing.
+2. Set up the selection of the correct family to assign the cross section of the element.
+
+> details
+1. For the correct union of elements, all types had to be divided into separate algorithms and the connection was assigned separately.
+2. Work on the creation of an algorithm for finding the family closest to the cuboid.
+
+>results
+1. Roof elements are created and attached to the main frame.
+2. The algorithm gets the desired family, but still needs to be improved.
+
+## 22/07/2023
+> tasks
+1. Set up the selection of the correct family to assign the section of the element.
+
+> details
+1. Worked on an algorithm that gets all the dimensions of the cross sections in the project, then creates lists of ranges. Then the dimensions of the cuboid are compared with the ranges and the algorithm gets the nearest number for the size.
+
+>results
+1. An algorithm has been developed for selecting a section of an element.
+
+## 23/07/2023
+> tasks
+1. Create a list of families.
+
+> details
+1. Creation of family types based on the table and additional types for connected elements. Checking the health of families in Autodesk Robot.
+
+>results
+1. Created a list of family types for PINE and LVL.
+
+## 24/07/2023
+> tasks
+1. Creation of materials with design characteristics.
+
+> details
+1. Creation of materials in Revit with filling in all the calculated parameters of the material. Further, obtaining these materials in the dynamo and assigning this material to the analytical lines in the model, depending on the type of element.
+ 
+>results
+1. Materials "radiata,seasoned" and "WESBEAM" are created and assigned to analytic elements.
+
+## 25/07/2023
+> tasks
+1. Analysis of the script's performance for the entire scheme.
+
+> details
+1. Repeated runs of the script were carried out for the entire model and its parts. It was found that there are elements in the model that cause looping of the code. Therefore, only a fully working half of the circuit was used for verification, on the basis of which an analytical model was built. After the model was exported to Autodesk Robot.
+ 
+>results
+1. The script works for most of the scheme and correctly assigns the sections of the elements and the characteristics of the materials. Code looping has been detected.
+
+![Result in Dynamo](Result in Dynamo.png)
+![Result in Revit](Result in Revit.png)
+![Result in Robot](Result in Robot.png)
+
+## 27/07/2023
+> tasks
+1. Search for looping in the code.
+
+> details
+1. Finding the part of the circuit where looping occurs by gradually moving the boundary of the Section Box. I ran the script every time after expanding the border until I found the area where the script was hanging.
+ 
+>results
+1. A part of the model on which the script is freezing was found. The script processes all other parts of the model in about 8 minutes.
+
+![Problem area of the model](Problem area of the model.png)
+
+## 29/07/2023
+> tasks
+1. Work with a section of the circuit where the code loops.
+
+> details
+1. After I found the site, I used the Section Box displacement method to look for an element or several elements that cause the script to freeze. I found a section of the wall where the wall elements overlap. Next, I hid them in the working view and this area was processed with a script. But when we tried again to run the script for the entire circuit, it turned out that this is not one place in the model where looping occurs.
+ 
+>results
+1. Problem elements were found. It was also found that there are several places in the model where the script can hang.
+
+![Wall section that causes looping](Wall section that causes looping.png)
+
+## 31/07/2023
+> tasks
+1. Finding ways to find problem areas in the model.
+
+> details
+1. Since overlaps of elements or other possible problems can occur in the model, and the search for these areas manually takes a lot of time, I was looking for a way to automate this process. I've tried Python Scripts to limit the script's run time so that if it hangs, there's no need to crash the program.
+ 
+>results
+1. Nodes and Python Script have been tried to limit the work of the script, but so far this does not give the necessary results.
