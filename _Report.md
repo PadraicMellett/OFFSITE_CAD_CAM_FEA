@@ -40,6 +40,19 @@
 > results
 1. After the session with Dan structural analysis workflow description was created with specific scripts and their features.
 
+## 28/03/2023
+> tasks
+1. Review AGACAD software capabilities for wood framing design and automation
+
+> details
+1. AGACAD provides a wide range of applications for concrete steel and wood framing design in Revit. The framing capabilities are extensive similar to hsbCAD and it can be a good solution if the design process switched to Revit.
+2. Another benefit of the AGACAD is the Dynamo package of nodes to automate the design process
+3. It also doesn't have a good analytical model tool, it relies on native Revit-Robot capabilities
+
+> results
+1. AGACAD has more developed Revit design tools than hsbCAD and it makes sense to use it after switching to Revit. It gives more design automation functionality and the use of native Revit elements.
+2. The analytical model script that we are working on will work similarly well for the hsbCAD IFC model and AGACAD elements in Revit since it is based on the element's geometry and doesn't depend on the category of the element
+
 ## 27/04/2023
 > tasks
 1. Start the workflow realization
