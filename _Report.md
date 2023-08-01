@@ -388,6 +388,7 @@
 1. The algorithm for creating a wall frame works correctly. The central analytical line for a group of studs is located exactly at the corners of the intersections. So far, there is a problem with the transfer of wall studs to floor beams in places where the perpendicular beam passes, because there is the nearest intersection point.
 
 ![point offset](Point offset.png)
+![optimized corner](Optimized_corner.png)
 
 ## 11/07/2023
 > tasks
