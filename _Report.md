@@ -387,8 +387,7 @@
 >results
 1. The algorithm for creating a wall frame works correctly. The central analytical line for a group of studs is located exactly at the corners of the intersections. So far, there is a problem with the transfer of wall studs to floor beams in places where the perpendicular beam passes, because there is the nearest intersection point.
 
-![point offset](Point offset.png)
-![optimized corner](Optimized_corner.png)
+![point offset](Point_offset.png)
 
 ## 11/07/2023
 > tasks
@@ -430,7 +429,7 @@
 >results
 1. Basically, analytical blocking lines are built correctly. There was one problem with joining blockings to sill studs.
 
-![blocking with sill studs](Blocking with sill studs.png)
+![blocking with sill studs](Blocking_with_sill_studs.png)
 
 ## 18/07/2023
 > tasks
@@ -495,9 +494,9 @@
 >results
 1. The script works for most of the scheme and correctly assigns the sections of the elements and the characteristics of the materials. Code looping has been detected.
 
-![Result in Dynamo](Result in Dynamo.png)
-![Result in Revit](Result in Revit.png)
-![Result in Robot](Result in Robot.png)
+![Result in Dynamo](Result_in_Dynamo.png)
+![Result in Revit](Result_in_Revit.png)
+![Result in Robot](Result_in_Robot.png)
 
 ## 27/07/2023
 > tasks
@@ -509,7 +508,7 @@
 >results
 1. A part of the model on which the script is freezing was found. The script processes all other parts of the model in about 8 minutes.
 
-![Problem area of the model](Problem area of the model.png)
+![Problem area of the model](Problem_area_of_the_model.png)
 
 ## 29/07/2023
 > tasks
@@ -521,7 +520,7 @@
 >results
 1. Problem elements were found. It was also found that there are several places in the model where the script can hang.
 
-![Wall section that causes looping](Wall section that causes looping.png)
+![Wall section that causes looping](Wall_section_that_causes_looping.png)
 
 ## 31/07/2023
 > tasks
