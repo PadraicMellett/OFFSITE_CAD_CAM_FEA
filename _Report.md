@@ -544,3 +544,151 @@
  
 >results
 1. Nodes and Python Script have been tried to limit the work of the script, but so far this does not give the necessary results.
+
+## 05/08/2023
+> tasks
+1. Search for problem areas in the model and search for a node where looping occurs.
+
+> details
+1. Previously, I found a common area where the script hangs, and by narrowing the sectional block, I found where the loop occurs. Next, I looked for the algorithm zone where the script freezes gradually turning off the nodes.
+ 
+>results
+1. I found the nodes of the algorithm where, under certain conditions for placing model elements, looping can occur. This occurs when aligning elements at closely spaced points. The screenshots show an example before and after the alignment node.
+
+![2023.08.05_Stud lines after the node](2023.08.05_Stud_lines_after_the_node.png)
+![2023.08.05_Stud lines before the node](2023.08.05_Stud_lines_before_the_node.png)
+
+## 06/08/2023
+> tasks
+1. Changing the part of the algorithm where the points are aligned.
+
+> details
+1. To avoid possible loops, I decided to completely rewrite the point alignment algorithm. I tried different ways of grouping points by coordinates, taking into account the tolerance. Early grouping of points was carried out on the basis of dividing the coordinate by the tolerance and replacing the resulting number with an integer. At the end, I found a way to calculate the interval for numbers and check if other points are included in this interval.
+ 
+>results
+1. Algorithm for alignment of points is created in a new way.
+
+![2023.08.06_Result after changing the algorithm](2023.08.06_Result_after_changing_the_algorithm.png)
+
+## 08/08/2023
+> tasks
+1. Replacing the algorithm for aligning points in other parts of the script.
+
+> details
+1. After adapting the algorithm for aligning points in a different way, I needed to apply this for other chains and double-check the performance.
+ 
+>results
+1. Replacing part of the algorithm in all chains. The new way works better and faster.
+
+## 10/08/2023
+> tasks
+1. Correction of non-vertical studios.
+
+> details
+1. When creating a unified scheme, non-vertical studies sometimes occur. I have already fixed a similar problem before, but I solved it by defining one of the points that coincides with the point of the horizontal elements. In this case it doesn't work because both points coincide with the ends of the elements. Therefore, I had to add one more condition under which the studio should be in line with the neighboring ones.
+ 
+>results
+1. Fixed problem with non-vertical studios.
+
+![2023.08.10_Not vertical studs](2023.08.10_Not_vertical_studs.png)
+![2023.08.10_The result of corrected studies](2023.08.10_The_result_of_corrected_studies.png)
+
+## 12/08/2023
+> tasks
+1. Refinement of plates.
+
+> details
+1. The order of the script is that first the plates and floor beams are created and then the studs are attached to them. But there are places in the model where it is necessary as a result to attach plates horizontally to the studs. I sorted the unattached ends and assigned them a join. Also, after all the manipulations with the alignment of the points and the alignment of the studs, in some places a shift of the stud points occurs. I fixed it by adding additional conditions.
+ 
+>results
+1. Assigned adjunction of plates to the studs and corrected the offset of the ends of the plates.
+
+![2023.08.12_Unattached plates](2023.08.12_Unattached_plates.png)
+![2023.08.12_Result of attached plates](2023.08.12_Result_of_attached_plates.png)
+![2023.08.12_Offset of some points](22023.08.12_Offset_of_some_points)
+![2023.08.12_Offset Correction](2023.08.12_Offset_Correction)
+
+## 13/08/2023
+> tasks
+1. Work on changing the way blocking is built.
+2. Checking the script's performance.
+
+> details
+1. Previously, I created blocks as a separate line for each element and attached them to the studs. But I faced the problem that due to the grouping of the studios and the alignment of the points, the blockings should also be shifted or completely removed. I created an algorithm that performed this action, but when exporting the scheme to Atodesk Robot, I found that the blockings were duplicated in the same place. The poet had to change. As a result, now I dine all the blocking elements along one straight line and create a central line, after which I separate it at the intersections with the studs. The cross section is assigned by the smallest element.
+2. Run the script in different zones of the model and check the correctness of building all elements of the analytical model
+ 
+>results
+1. The algorithm for constructing blocking lines has been completely changed.
+2. The analysis of the correct work of the script was carried out.
+
+## 18/08/2023
+> tasks
+1. Checking the whole scheme and correcting errors.
+
+> details
+1. Run the script for the whole scheme. The first time after opening the file, the script runs for 28 minutes for the entire model. Analyzing, I saw that there are free non-attached points in the analytical model where they should not be. And also there were some errors in obtaining the desired cross section and assigning this section to analytical lines. Worked on solving these problems.
+ 
+>results
+1. Errors in obtaining the cross section have been corrected. I'm still working on free points in the model.
+
+![2023.08.18_Free points in the analytical model](2023.08.18_Free_points_in_the_analytical_model.png)
+![2023.08.18_Errors in the script](2023.08.18_Errors_in_the_script.png)
+
+## 19/08/2023
+> tasks
+1. Work on correcting connections.
+
+> details
+1. Corrected and supplemented the algorithms for connecting analytical lines for studs and plates. Faced with the problems of looping the script about changes in the merging path.
+ 
+>results
+1. Fixed paths for joining lines. The problem of free points is solved.
+
+![2023.08.19_Looping when getting new points for studs](22023.08.19_Looping_when_getting_new_points_for_studs.png)
+![2023.08.19_Looping when changing the connection method for plates](2023.08.19_Looping_when_changing_the_connection_method_for_plates.png)
+![2023.08.19_Corrected result](2023.08.19_Corrected_result.png)
+
+## 20/08/2023
+> tasks
+1. Correction of correspondence between the list of sections and lines.
+
+> details
+1. I found that as a result, the assigned section for the analytical line does not always match. I realized that after in the script in several places I use the "List.FilterByBoolMask" node after the algorithm is expanded on the line and the cross section is obtained. So the lists don't match. I changed all "List.FilterByBoolMask" nodes to get lists by indexes and then replace them.
+ 
+>results
+1. Lists of lines and cross-sections match.
+
+## 21/08/2023
+> tasks
+1. Correction of non-vertical SILL STUDS.
+2. Create a template file
+
+> details
+1. If there is a floor beam near SILL STUDS, then the line was not created vertically. I corrected such lines by looking for an intersection with SILL and creating a new bottom node based on it.
+2. Based on the working file, I created a template file, cleaned up the unnecessary and put filters and families in order.
+ 
+>results
+1. Fixed SILL STUDS.
+2. Created a template file with built-in families.
+
+![2023.08.21_Non vertical SILL STUDS](2023.08.21_Non_vertical_SILL_STUDS.png)
+
+## 09/01/2023
+> tasks
+1. Cleaned up the script and tested the performance of the analytical model.
+2. Creation of instructions for the script.
+
+> details
+1. I cleaned the excess in the script and united the nodes into groups. I ran the script and exported the model to Autodesk Robot. I created a pin point and checked the calculation of the scheme for the dead weight of the structure.
+2. I created instructions for the sequence of creating a file, preparing a model and running a script.
+ 
+>results
+1. The script and analytical models are functional (there are a few more points that should be fixed).
+2. Created an instruction.
+
+![2023.09.01_The result of the analytical model in Revit](2023.09.01_The_result_of_the_analytical_model_in_Revit.png)
+![2023.09.01_The result of the analytical model in Robot](2023.09.01_The_result_of_the_analytical_model_in_Robot.png)
+![2023.09.01_Model in Robot](2023.09.01_Model_in_Robot.png)
+![2023.09.01_Characteristics of elements in Robot](2023.09.01_Characteristics_of_elements_in_Robot.png)
+![2023.09.01_Deformations from own weight](2023.09.01_Deformations_from_own_weight.png)
+![2023.09.01_Fx from own weight](2023.09.01_Fx_from_own_weight.png)
