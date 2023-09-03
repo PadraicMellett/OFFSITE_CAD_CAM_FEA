@@ -644,7 +644,7 @@
 >results
 1. Fixed paths for joining lines. The problem of free points is solved.
 
-![2023.08.19_Looping when getting new points for studs](22023.08.19_Looping_when_getting_new_points_for_studs.png)
+![2023.08.19_Looping when getting new points for studs](2023.08.19_Looping_when_getting_new_points_for_studs.png)
 ![2023.08.19_Looping when changing the connection method for plates](2023.08.19_Looping_when_changing_the_connection_method_for_plates.png)
 ![2023.08.19_Corrected result](2023.08.19_Corrected_result.png)
 
